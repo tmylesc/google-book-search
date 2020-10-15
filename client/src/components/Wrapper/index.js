@@ -1,9 +1,7 @@
 import React from 'react'
 
-export default function Wrapper() {
-    return (
-        <div>
-            Wrapper
-        </div>
-    )
-}
+function Wrapper(props) {
+    return <main className="wrapper" {...props} />;
+};
+
+export default Wrapper;
