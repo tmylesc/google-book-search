@@ -20,8 +20,8 @@ class App extends Component {
           <Route exact path="/saved" component={Saved} />
         </Wrapper>
       </Router>
-    )
-  }
+    );
+  };
 
 };
 
