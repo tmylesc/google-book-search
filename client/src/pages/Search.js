@@ -24,4 +24,42 @@ class Search extends Component {
         };
     };
 
+    searchBooks = query => {
+        API.getBook(query)
+            .then(res => this.state({ books: res.data.items.map(bookData => this.newBook(bookData))}))
+            .catch(err => console.error(err));
+    };
+
+    handleInputChange = event => {
+        const name = event.target.name;
+        const value = event.target.value;
+
+        this.setState({
+            [name]: value
+        });
+    };
+
+    handleFormSubmit = event => {
+        event.preventDefault();
+        this.searchBooks(this.state.search);
+    };
+
+    render() {
+        return (
+            <div>
+                <Form>
+                    search={this.state.search}
+                    handleInputChange={this.handleInputChange}
+                    handleFormSubmit={this.handleFormSubmit}
+                </Form>
+                <div className="container">
+                    <h2>Results</h2>
+                    <Results books={this.state.books} />
+                </div>
+            </div>
+        );
+    };
+
 };
+
+export default Search;
