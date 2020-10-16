@@ -1,7 +1,7 @@
 import React from "react";
+import API from "../utils/API";
 import Form from "../components/Form";
 import Results from "../components/Results";
-import API from "../utils/API";
 
 class Search extends React.Component {
     state = {
@@ -10,7 +10,7 @@ class Search extends React.Component {
     };
 
     componentDidMount() {
-        this.searchBooks();
+        this.searchBook();
     };
 
     newBook = bookData => {
@@ -24,16 +24,15 @@ class Search extends React.Component {
         };
     };
 
-    searchBooks = query => {
+    searchBook = query => {
         API.getBook(query)
-            .then(res => this.setState({ books: res.data.items.map(bookData => this.newBook(bookData))}))
+            .then(res => this.setState({ books: res.data.items.map(bookData => this.newBook(bookData)) }))
             .catch(err => console.error(err));
     };
 
     handleInputChange = event => {
         const name = event.target.name;
         const value = event.target.value;
-
         this.setState({
             [name]: value
         });
@@ -41,17 +40,17 @@ class Search extends React.Component {
 
     handleFormSubmit = event => {
         event.preventDefault();
-        this.searchBooks(this.state.search);
+        this.searchBook(this.state.search);
     };
 
     render() {
         return (
             <div>
-                <Form>
+                <Form
                     search={this.state.search}
                     handleInputChange={this.handleInputChange}
                     handleFormSubmit={this.handleFormSubmit}
-                </Form>
+                />
                 <div className="container">
                     <h2>Results</h2>
                     <Results books={this.state.books} />
@@ -59,7 +58,6 @@ class Search extends React.Component {
             </div>
         );
     };
-
 };
 
 export default Search;
